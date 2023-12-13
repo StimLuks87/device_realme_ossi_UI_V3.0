@@ -59,6 +59,6 @@
 /custom                   ext4      /dev/block/platform/bootdevice/by-name/odm                    flags=display="Custom";backup=1
 /reserve2                 emmc      /dev/block/platform/bootdevice/by-name/reserve2               flags=display="Reserve2"
 /misc                     emmc      /dev/block/platform/bootdevice/by-name/misc                   flags=display="Misc"
-/sdcard1                  auto      /dev/block/mmcblk0p1 /dev/block/mmcblk0                       flags=display="MicroSD Card";storage;wipeingui;removable
-/usb-otg                  auto      /dev/block/sdd1 /dev/block/sdd                                flags=display="USB OTG";storage;wipeingui;removable
+/sdcard1                  auto      /dev/block/mmcblk0p1 /dev/block/mmcblk0                       flags=fsflags=utf8;display="MicroSD Card";storage;wipeingui;removable
+/usb_otg                  auto      /dev/block/sdd1 /dev/block/sdd                                flags=fsflags=utf8;display="USB OTG";storage;wipeingui;removable
 /storage                  auto      /data/media/0                                                 flags=display="Internal Storage";usermrf;fsflags="bind";removable;backup=1
