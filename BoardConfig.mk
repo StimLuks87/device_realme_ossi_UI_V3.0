@@ -74,8 +74,8 @@ TARGET_USES_MKE2FS := true
 # Partitions (Dynamic)
 BOARD_SUPER_PARTITION_SIZE := 9126805504 # TODO: Fix hardcoded value
 BOARD_SUPER_PARTITION_GROUPS := oplus_dynamic_partitions
-BOARD_SUPER_PARTITION_SIZE := 9122611200 # TODO: Fix hardcoded value
 BOARD_OPLUS_DYNAMIC_PARTITIONS_PARTITION_LIST := system vendor product system_ext
+BOARD_OPLUS_DYNAMIC_PARTITIONS_SIZE := 9122611200 # TODO: Fix hardcoded value
                       
 # Kernel - prebuilt
 TARGET_FORCE_PREBUILT_KERNEL := true
