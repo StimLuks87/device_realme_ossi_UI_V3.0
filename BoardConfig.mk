@@ -27,15 +27,15 @@ TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-2a-dotprod
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 := 
-TARGET_CPU_VARIANT := generic
+TARGET_CPU_VARIANT := := cortex-a76
 TARGET_CPU_VARIANT_RUNTIME := cortex-a76
 
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv8-2a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := generic
-TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a55
+TARGET_2ND_CPU_VARIANT := cortex-a76
+TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a76
 TARGET_BOARD_SUFFIX := _64
 TARGET_USES_64_BIT_BINDER := true
 
@@ -75,11 +75,8 @@ TARGET_USES_MKE2FS := true
 BOARD_SUPER_PARTITION_SIZE := 9126805504 # TODO: Fix hardcoded value
 BOARD_SUPER_PARTITION_GROUPS := oplus_dynamic_partitions
 BOARD_SUPER_PARTITION_SIZE := 9122611200 # TODO: Fix hardcoded value
-BOARD_OPLUS_DYNAMIC_PARTITIONS_PARTITION_LIST := \  
-                      system \
-                      vendor \
-                      product \
-                      system_ext
+BOARD_OPLUS_DYNAMIC_PARTITIONS_PARTITION_LIST := system vendor product system_ext
+                      
 # Kernel - prebuilt
 TARGET_FORCE_PREBUILT_KERNEL := true
 ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
@@ -191,14 +188,17 @@ TW_INCLUDE_CRYPTO_FBE := true
 TW_INCLUDE_FBE_METADATA_DECRYPT := true
 TW_PREPARE_DATA_MEDIA_EARLY := true
 
-# TWRP Configuration
+# TWRP Configuration	
+TW_CLOCK_OFFSET := "SAUST-3;SAUDT"																																																						
+TW_EXCLUDE_LPTOOLS := true																	
+TW_USE_NEW_MINADBD := true
 TW_EXCLUDE_APEX := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_FORCE_CPUINFO_FOR_DEVICE_ID := true
 TW_USE_MODEL_HARDWARE_ID_FOR_DEVICE_ID := true 
 TW_THEME := portrait_hdpi
-TW_EXTRA_LANGUAGES := true
+TW_EXTRA_LANGUAGES := false
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_MAX_BRIGHTNESS := 2047
 TW_DEFAULT_BRIGHTNESS := 1024
@@ -207,9 +207,8 @@ TW_INCLUDE_NTFS_3G := true
 TW_INCLUDE_RESETPROP := true
 TW_INCLUDE_REPACKTOOLS := true
 TW_INCLUDE_FASTBOOTD := true
-TW_SKIP_COMPATIBILITY_CHECK := true
 TW_FRAMERATE := 60
-TW_DEFAULT_LANGUAGE := ru
+TW_DEFAULT_LANGUAGE := RU EN-US
 TW_OZIP_DECRYPT_KEY := 0000
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.0/lun.%d/file
@@ -220,10 +219,11 @@ TW_INCLUDE_LIBRESETPROP := true
 TW_INCLUDE_FUSE_EXFAT := true
 TW_INCLUDE_FUSE_NTFS := true
 TW_NO_LEGACY_PROPS := true
-TW_EXCLUDE_SUPERSU := true
-#TW_NEVER_UNMOUNT_SYSTEM := true
-TW_NO_BIND_SYSTEM := true
+TW_NEVER_UNMOUNT_SYSTEM := true
 TW_FORCE_KEYMASTER_VER := true
+#TW_EXCLUDE_SUPERSU := true
+#TW_SKIP_COMPATIBILITY_CHECK := true
+#TW_NO_BIND_SYSTEM := true
 TARGET_SCREEN_HEIGHT := 2400
 TARGET_SCREEN_WIDTH := 1080 
 
@@ -232,9 +232,9 @@ TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
 
 # Configure Status bar icons "TWRP builds only"
-#TW_Y_OFFSET := 36
-#W_H_OFFSET := -26
-#TW_CUSTOM_CPU_POS := 155
+TW_Y_OFFSET := 36
+W_H_OFFSET := -26
+TW_CUSTOM_CPU_POS := 155
 #TW_CUSTOM_CLOCK_POS := 155
 #TW_STATUS_ICONS_ALIGN := center
 
