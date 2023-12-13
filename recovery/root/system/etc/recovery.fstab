@@ -39,7 +39,11 @@ my_bigball /mnt/vendor/my_bigball ext4 ro,barrier=1 wait,,logical,first_stage_mo
 my_manifest /mnt/vendor/my_manifest erofs ro wait,,logical,first_stage_mount,nofail
 my_manifest /mnt/vendor/my_manifest ext4 ro,barrier=1 wait,,logical,first_stage_mount,nofail
 
-
+overlay /product/app  overlay  ro,lowerdir=/mnt/vendor/my_company/app:/mnt/vendor/my_carrier/app:/mnt/vendor/my_region/app:/mnt/vendor/my_preload/app:/mnt/vendor/my_bigball/app:/mnt/vendor/my_product/app:/mnt/vendor/my_heytap/app:/mnt/vendor/my_stock/app:/mnt/vendor/my_engineering/app:/product/app         first_stage_mount
+overlay /product/priv-app  overlay ro,lowerdir=/mnt/vendor/my_company/priv-app:/mnt/vendor/my_carrier/priv-app:/mnt/vendor/my_region/priv-app:/mnt/vendor/my_preload/priv-app:/mnt/vendor/my_bigball/priv-app:/mnt/vendor/my_product/priv-app:/mnt/vendor/my_heytap/priv-app:/mnt/vendor/my_stock/priv-app:/mnt/vendor/my_engineering/priv-app:/product/priv-app         first_stage_mount
+overlay /product/lib64 overlay ro,lowerdir=/mnt/vendor/my_company/lib64:/mnt/vendor/my_carrier/lib64:/mnt/vendor/my_region/lib64:/mnt/vendor/my_preload/lib64:/mnt/vendor/my_bigball/lib64:/mnt/vendor/my_product/lib64:/mnt/vendor/my_heytap/lib64:/mnt/vendor/my_stock/lib64:/product/lib64         first_stage_mount
+overlay /product/lib overlay ro,lowerdir=/mnt/vendor/my_company/lib:/mnt/vendor/my_carrier/lib:/mnt/vendor/my_region/lib:/mnt/vendor/my_preload/lib:/mnt/vendor/my_bigball/lib:/mnt/vendor/my_product/lib:/mnt/vendor/my_heytap/lib:/mnt/vendor/my_stock/lib:/product/lib         first_stage_mount
+overlay /product/overlay  overlay ro,lowerdir=/mnt/vendor/my_company/overlay:/mnt/vendor/my_carrier/overlay:/mnt/vendor/my_region/overlay:/mnt/vendor/my_preload/overlay:/mnt/vendor/my_bigball/overlay:/mnt/vendor/my_product/overlay:/mnt/vendor/my_heytap/overlay:/mnt/vendor/my_stock/overlay:/mnt/vendor/my_engineering/overlay:/product/overlay         first_stage_mount
 
 /dev/block/platform/bootdevice/by-name/recovery /recovery emmc defaults first_stage_mount,nofail
 /dev/block/platform/bootdevice/by-name/boot /boot emmc defaults first_stage_mount,nofail
