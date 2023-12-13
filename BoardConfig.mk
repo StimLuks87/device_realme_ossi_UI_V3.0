@@ -233,7 +233,7 @@ TARGET_USES_LOGD := true
 
 # Configure Status bar icons "TWRP builds only"
 TW_Y_OFFSET := 36
-W_H_OFFSET := -26
+TW_H_OFFSET := -26
 TW_CUSTOM_CPU_POS := 155
 #TW_CUSTOM_CLOCK_POS := 155
 #TW_STATUS_ICONS_ALIGN := center
