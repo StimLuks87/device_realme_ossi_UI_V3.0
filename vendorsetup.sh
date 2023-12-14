@@ -48,7 +48,7 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
 
 	# Device Information
 	export FOX_ARCH=arm64
-	export FOX_VARIANT="Realme_UI_V3.0"
+	export FOX_VARIANT="Realme_7_UI_V3.0"
 	export TARGET_DEVICE_ALT="RMX2151,RMX2151L1,RMX2153,RMX2153L1,RMX2155,RMX2155L1,RMX2156,RMX2156L1,RMX2161,RMX2161L1,RMX2163,RMX2163L1,salaa,alps,ossi,oplus"
 
 	# Funtions
@@ -67,7 +67,7 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
         export OF_USE_MAGISKBOOT_FOR_ALL_PATCHES=1
         export OF_FLASHLIGHT_ENABLE=0
         export OF_FL_PATH1="/tmp/flashlight"
-        export FOX_USE_DATA_RECOVERY_FOR_SETTINGS=0
+        export FOX_USE_DATA_RECOVERY_FOR_SETTINGS=1
         export FOX_BASH_TO_SYSTEM_BIN=1
 
 	# Display Settings
@@ -87,8 +87,8 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
         export FOX_DELETE_AROMAFM=1
         export FOX_USE_TWRP_RECOVERY_IMAGE_BUILDER=1
         export OF_DEFAULT_KEYMASTER_VERSION=4.0
-        export OF_DISABLE_MIUI_SPECIFIC_FEATURES=0
-        export OF_TWRP_COMPATIBILITY_MODE=0
+        export OF_DISABLE_MIUI_SPECIFIC_FEATURES=1
+        export OF_TWRP_COMPATIBILITY_MODE=1
         export OF_DISABLE_DM_VERITY_FORCED_ENCRYPTION=0
         export OF_FORCE_DISABLE_DM_VERITY_FORCED_ENCRYPTION=0
         export OF_SKIP_DECRYPTED_ADOPTED_STORAGE=1
@@ -103,11 +103,11 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
         export OF_QUICK_BACKUP_LIST="/boot;/dtbo;/recovery;/nvram;/data;/super;/"
 
         # OTA
-	export OF_KEEP_DM_VERITY=1
-	export OF_SUPPORT_ALL_BLOCK_OTA_UPDATES=1
-	export OF_FIX_OTA_UPDATE_MANUAL_FLASH_ERROR=1
-	export OF_DISABLE_MIUI_OTA_BY_DEFAULT=1
-        export OF_NO_MIUI_PATCH_WARNING=1
+	export OF_KEEP_DM_VERITY=0
+	export OF_SUPPORT_ALL_BLOCK_OTA_UPDATES=0
+	export OF_FIX_OTA_UPDATE_MANUAL_FLASH_ERROR=0
+	export OF_DISABLE_MIUI_OTA_BY_DEFAULT=0
+        export OF_NO_MIUI_PATCH_WARNING=0
 
 
 
