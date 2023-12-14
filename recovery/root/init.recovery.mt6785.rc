@@ -1,11 +1,8 @@
-# Copyright (c) 2023, The Linux Foundation. All rights reserved.
+# Copyright (c) 2024, The Linux Foundation. All rights reserved.
 
-import /init.recovery.trustonic.rc
-import /tee.rc
+import /init.trustonic.rc
 import /system/etc/init.aging.rc
-import /vendor/etc/init/hw/init.sensor_1_0.rc
-import /vendor/etc/init/android.hardware.drm@1.4-service.clearkey.rc
-import /vendor/etc/init/android.hardware.drm@1.4-service.widevine.rc
+import /tee.rc
 
 on init
     symlink /dev/block/platform/bootdevice /dev/block/bootdevice
@@ -13,6 +10,7 @@ on init
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /sdcard
+    export LD_LIBRARY_PATH .:/sbin
     export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/vendor/lib64/hw:/system/lib64/hw
     setprop ro.boot.build.security_patch 2099-12-31
 
@@ -33,9 +31,6 @@ on boot
     start vendor.vibrator-1-0 
     start health-hal-2-1
     insmod /vendor/lib/modules/connfem.ko
-    exec u:r:recovery:s0 root root -- /system/bin/cp -af /res/OplusOS/. /res
-    exec u:r:recovery:s0 root root -- /system/bin/cp -arf /vendor/app/mcRegistry/. /odm/vendor/app/mcRegistry/
-    class_start default
 
 on boot && property:ro.crypto.state=encrypted && property:ro.crypto.type=file
     load_fastboot_adb_props
@@ -49,15 +44,79 @@ on fs
     write /sys/class/oplus_chg/usb/otg_switch 1
     write /sys/class/power_supply/usb/otg_switch 1
 
-#on property:sys.powerctl=*
-#   powerctl ${sys.powerctl}
-
 service console /system/bin/sh
     class core
     console
     user root
-    group shell log readproc
+    group root
+    disabled
     seclabel u:r:recovery:s0
+
+service fastbootd /system/bin/fastbootd
+    user root
+    group system
+    disabled
+    seclabel u:r:recovery:s0
+
+service charger /system/bin/charger
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+
+service logd /system/bin/logd
+    class core
+    socket logd stream 0666 logd logd
+    socket logdr seqpacket 0666 logd logd
+    socket logdw dgram 0222 logd logd
+    user root
+    group root system
+    disabled
+    seclabel u:r:recovery:s0
+
+service recovery /system/bin/recovery
+    user root
+    group root
+    disabled
+    socket recovery stream 422 system system
+    seclabel u:r:recovery:s0
+
+service healthd /system/bin/android.hardware.health@2.1-service -r
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+
+service ueventd /system/bin/ueventd
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+
+#Fangfang.Hui@PSW.AD.Ota.1122242, 2016/08/15, Add for check and autorepair ext4 filesystem partitions in recovery mode
+    exec /sbin/e2fsck -y /dev/block/platform/mtk-msdc.0/by-name/cache
+    exec /sbin/e2fsck -y /dev/block/platform/mtk-msdc.0/by-name/userdata
+
+    #mount ext4 /dev/block/bootdevice/by-name/userdata /data rw
+    setprop persist.sys.firstlaunch false
+
+    #ifndef OPLUS_FEATURE_RECOVERY_RESET
+    #Yang.Li@ANDROID.STORAGE, 2017/12/19, Remove for can't umount /vendor in OTA update
+    mkdir /mnt/vendor/persist/mcRegistry
+    #mount ext4 /dev/block/platform/bootdevice/by-name/vendor  /vendor rw
+    #mount ext4 /dev/block/platform/bootdevice/by-name/system  /system rw
+    mkdir /mnt/vendor/persist
+    mount ext4 /dev/block/by-name/persist /mnt/vendor/persist rw
+    #setprop vendor.gatekeeper.disable_spu true
+    #endif /* OPLUS_FEATURE_RECOVERY_RESET */
+
+on boot
+    ifup lo
+    hostname localhost
+    domainname localdomain
+    exec u:r:recovery:s0 root root -- /system/bin/cp -af /res/OplusOS/. /res
+    exec u:r:recovery:s0 root root -- /system/bin/cp -arf /vendor/app/mcRegistry/. /odm/vendor/app/mcRegistry/
+    class_start default
 
 on property:ro.crypto.state=encrypted && property:ro.crypto.type=file
     start mobicore
@@ -66,8 +125,9 @@ on property:ro.crypto.state=encrypted && property:ro.crypto.type=file
 
 service servicemanager /system/bin/servicemanager
     user root
-    group root readproc
+    group system readproc
     disabled
+    writepid /dev/cpuset/system-background/tasks
     seclabel u:r:recovery:s0
 
 service keystore_auth /system/bin/keystore_auth
@@ -116,6 +176,9 @@ service vendor.keymaster-4-0-trustonic /system/bin/android.hardware.keymaster@4.
 service hwservicemanager /system/bin/hwservicemanager
     onrestart setprop hwservicemanager.ready false
     writepid /dev/cpuset/system-background/tasks
+    user root
+    group root
+    disabled
     seclabel u:r:recovery:s0
     
 service init-device-sh /system/bin/init.device.sh
@@ -141,49 +204,19 @@ service vendor.vibrator-1-0 system/bin/android.hardware.vibrator@1.0-service
 service tee-1-1 /system/bin/vendor.trustonic.tee@1.1-service
     user root
     group root
+    disabled
     seclabel u:r:recovery:s0
 
 service soter_hal /system/bin/vendor.trustonic.tee@1.1-service
     user root
     group root
+    disabled
     seclabel u:r:recovery:s0
 
 service hal_cryptoeng_oppo /system/bin/hw/vendor.oplus.hardware.cryptoeng@1.0-service
     user root
     group root
-    seclabel u:r:recovery:s0
-
-#ifdef OPLUS_FEATURE_PHOENIX_RECOVERY
-service phoenix_recovery /system/bin/phoenix_recovery
-    critical
-    seclabel u:r:recovery:s0
-#endif /* OPLUS_FEATURE_PHOENIX_RECOVERY */
-
-service ueventd /system/bin/ueventd
-    critical
-    seclabel u:r:recovery:s0
-
-service fastbootd /system/bin/fastbootd
     disabled
-    group system
-    seclabel u:r:recovery:s0
-
-service healthd /system/bin/android.hardware.health@2.1-service -r
-    seclabel u:r:recovery:s0
-
-service charger /system/bin/charger
-    seclabel u:r:recovery:s0
-
-service recovery /system/bin/recovery
-    socket recovery stream 422 system system
-    seclabel u:r:recovery:s0
-
-service logd /system/bin/logd
-    class core
-    socket logd stream 0666 logd logd
-    socket logdr seqpacket 0666 logd logd
-    socket logdw dgram 0222 logd logd
-    group root system
     seclabel u:r:recovery:s0
 
 service mobicore /vendor/bin/mcDriverDaemon --P1 /mnt/vendor/persist/mcRegistry \
