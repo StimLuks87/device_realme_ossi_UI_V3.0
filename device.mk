@@ -11,14 +11,15 @@ LOCAL_PATH := device/realme/RMX2155L1
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)
     
-PRODUCT_PACKAGES += \
-    android.hardware.drm-service.clearkey \
-    android.hardware.drm-service.widevine
-    
 # Partitions && Property
 PRODUCT_BUILD_SUPER_PARTITION := false
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 PRODUCT_PROPERTY_OVERRIDES += persist.sys.fuse.passthrough.enable=true
+
+# Drm
+PRODUCT_PACKAGES += \
+    android.hardware.drm-service.clearkey \
+    android.hardware.drm-service.widevine
 
 # Health
 PRODUCT_PACKAGES += \
