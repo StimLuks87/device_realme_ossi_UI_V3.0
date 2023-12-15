@@ -187,7 +187,7 @@ TW_INCLUDE_FBE_METADATA_DECRYPT := true
 TW_PREPARE_DATA_MEDIA_EARLY := true
 
 # TWRP Configuration	
-TW_CLOCK_OFFSET := "SAUST-3;SAUDT"																																																																							
+TW_CLOCK_OFFSET := "PAKST-5;PAKDT"																																																																							
 TW_USE_NEW_MINADBD := true
 TW_EXCLUDE_APEX := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
