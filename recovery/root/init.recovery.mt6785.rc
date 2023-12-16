@@ -31,6 +31,8 @@ on boot
     start vendor.vibrator-1-0 
     start health-hal-2-1
     insmod /vendor/lib/modules/connfem.ko
+    mount_all /system/etc/fstab.${ro.boot.bootdevice.platform} --early
+    mount_all /system/etc/fstab.${ro.boot.bootdevice.platform} --late
 
 on boot && property:ro.crypto.state=encrypted && property:ro.crypto.type=file
     load_fastboot_adb_props
