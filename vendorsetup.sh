@@ -29,14 +29,12 @@ fi
 
 if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
 
-
 	# Initial Exports
         #export USE_CCACHE=1
         #export CCACHE_EXEC=/usr/bin/ccache
         #ccache -M 50G
 	export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL="C"
-
 
 	# Maintaining Info
 	export OF_MAINTAINER=Stim_Luks
@@ -108,8 +106,6 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
 	export OF_FIX_OTA_UPDATE_MANUAL_FLASH_ERROR=0
 	export OF_DISABLE_MIUI_OTA_BY_DEFAULT=0
         export OF_NO_MIUI_PATCH_WARNING=0
-
-
 
 	# let's see what are our build VARs
 
