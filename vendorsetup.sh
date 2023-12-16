@@ -80,7 +80,7 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
         export OF_USE_GREEN_LED=0
         #export OF_SPLASH_MAX_SIZE=
         export TW_DEFAULT_LANGUAGE="ru"
-        export OF_DEFAULT_TIMEZONE="SAUST-3;SAUDT"
+        export OF_DEFAULT_TIMEZONE="PAKST-5;PAKDT"
 
 	# Other OrangeFox Vars
         export FOX_REMOVE_BUSYBOX_BINARY=1
