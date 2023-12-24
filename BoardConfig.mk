@@ -10,17 +10,16 @@ DEVICE_PATH := device/realme/RMX2155L1
 # For building with minimal manifest
 ALLOW_MISSING_DEPENDENCIES := true
 
+# Build Rules
+BUILD_BROKEN_DUP_RULES := true
+BUILD_BROKEN_PREBUILT_ELF_FILES := true
+BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+
 # APEX
 OVERRIDE_TARGET_FLATTEN_APEX := true
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := RMX2151,RMX2151L1,RMX2153,RMX2153L1,RMX2155,RMX2155L1,RMX2156,RMX2156L1,RMX2161,RMX2161L1,RMX2163,RMX2163L1,oppo6785,RM6785,salaa,alps,ossi,oplus
-
-# Build Rules
-
-BUILD_BROKEN_DUP_RULES := true
-BUILD_BROKEN_PREBUILT_ELF_FILES := true
-BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 
 # Architecture
 TARGET_ARCH := arm64
@@ -31,7 +30,7 @@ TARGET_CPU_VARIANT := generic
 TARGET_CPU_VARIANT_RUNTIME := cortex-a76
 
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv8-a
+TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
@@ -56,23 +55,25 @@ MTK_HARDWARE := true
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 102760448
-BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
-BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_CACHEIMAGE_PARTITION_SIZE := 1b000000
-BOARD_SYSTEMIMAGE_PARTITION_TYPE := erofs
+BOARD_SYSTEMIMAGE_PARTITION_TYPE := ext4
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := erofs
-BOARD_USES_SYSTEM_EXTIMAGE := true
-BOARD_USES_PRODUCTIMAGE := true
-BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := erofs
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := erofs
 BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := erofs
-TARGET_COPY_OUT_SYSTEM_EXT := system_ext
-TARGET_COPY_OUT_VENDOR := vendor
-TARGET_COPY_OUT_PRODUCT := product
+BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := erofs
+BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := erofs
+BOARD_USES_SYSTEM_EXTIMAGE := true
+BOARD_USES_PRODUCTIMAGE := true
+BOARD_HAS_LARGE_FILESYSTEM := true
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 TARGET_USES_MKE2FS := true
+
+TARGET_COPY_OUT_SYSTEM := system
+TARGET_COPY_OUT_VENDOR := vendor
+TARGET_COPY_OUT_PRODUCT := product
+TARGET_COPY_OUT_ODM := odm
+TARGET_COPY_OUT_SYSTEM_EXT := system_ext
 
 # Partitions (Dynamic)
 BOARD_SUPER_PARTITION_SIZE := 6970933248
@@ -92,6 +93,7 @@ BOARD_KERNEL_SEPARATED_DTBO :=
 endif
 
 # Kernel - config
+TARGET_KERNEL_VERSION := 4.14
 TARGET_KERNEL_CONFIG := RM6785_defconfig
 TARGET_KERNEL_SOURCE := kernel/realme/mt6785
 TARGET_KERNEL_ADDITIONAL_FLAGS := HOSTCFLAGS="-fuse-ld=lld -Wno-unused-command-line-argument"
@@ -102,6 +104,8 @@ BOARD_BOOTIMG_HEADER_VERSION := 2
 BOARD_KERNEL_BASE := 0x40078000
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE += androidboot.usbconfigfs=true
+BOARD_KERNEL_CMDLINE += androidboot.init_fatal_reboot_target=bootloader
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_RAMDISK_OFFSET := 0x07c08000
 BOARD_KERNEL_TAGS_OFFSET := 0x0bc08000
@@ -131,9 +135,6 @@ TARGET_SYSTEM_PROP := $(DEVICE_PATH)/properties/system.prop
 TARGET_VENDOR_PROP := $(DEVICE_PATH)/properties/vendor.prop
 TARGET_RECOVERY_DEVICE_DIRS += $(DEVICE_PATH)
 
-# Display
-TARGET_SCREEN_DENSITY := 440
-
 # Versions and Security Patch
 PLATFORM_SECURITY_PATCH := 2099-12-31
 VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
@@ -154,9 +155,19 @@ BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
 
+BOARD_AVB_RECOVERY_ADD_HASH_FOOTER_ARGS += \
+    --prop com.android.build.boot.os_version:$(PLATFORM_VERSION) \
+    --prop com.android.build.boot.security_patch:$(PLATFORM_SECURITY_PATCH)
+
 # Metadata
 BOARD_USES_METADATA_PARTITION := true
-BOARD_ROOT_EXTRA_FOLDERS += metadata
+BOARD_ROOT_EXTRA_FOLDERS += metadata my_bigball my_carrier my_company my_engineering my_heytap my_manifest my_preload my_product my_region my_stock my_version 
+
+# VINTF
+DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
+
+# Inherit the proprietary files
+#include vendor/realme/RMX2155L1/BoardConfigVendor.mk
 
 # Additional binaries & libraries needed for recovery
 TARGET_RECOVERY_DEVICE_MODULES += \
@@ -165,6 +176,8 @@ TARGET_RECOVERY_DEVICE_MODULES += \
     libion \
     libnetutils \
     libxml2 \
+    libkeymaster4 \
+    libpuresoftkeymasterdevice \
     ashmemd_aidl_interface-cpp \
     libashmemd_client
 
@@ -174,14 +187,13 @@ TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libnetutils.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libxml2.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster4.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libpuresoftkeymasterdevice.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/ashmemd_aidl_interface-cpp.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libashmemd_client.so
 
-# Inherit the proprietary files
-#include vendor/realme/RMX2155L1/BoardConfigVendor.mk
-
 # Version/Maintainer
-TW_DEVICE_VERSION := Realme_7_UI_V3.0
+#TW_DEVICE_VERSION := Realme_7_UI_V3.0
 
 # Crypto
 TW_INCLUDE_CRYPTO := true
@@ -201,7 +213,7 @@ TW_THEME := portrait_hdpi
 TW_EXTRA_LANGUAGES := true
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_MAX_BRIGHTNESS := 2047
-TW_DEFAULT_BRIGHTNESS := 1024
+TW_DEFAULT_BRIGHTNESS := 1200
 TW_USE_TOOLBOX := true
 TW_INCLUDE_NTFS_3G := true
 TW_INCLUDE_RESETPROP := true
@@ -236,11 +248,11 @@ TARGET_USES_LOGD := true
 
 # Configure Status bar icons "TWRP builds only"
 TW_Y_OFFSET := 36
-TW_H_OFFSET := -26
+TW_H_OFFSET := -36
 TW_CUSTOM_CPU_POS := 155
-#TW_CUSTOM_CLOCK_POS := 155
+#TW_CUSTOM_CLOCK_POS := 540
 #TW_STATUS_ICONS_ALIGN := center
 
 #Properties Override
 TW_OVERRIDE_SYSTEM_PROPS := \
-    "ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental" 
+    "ro.build.product;ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental;ro.product.device=ro.product.system.device;ro.product.model=ro.product.system.model;ro.product.name=ro.product.system" 
