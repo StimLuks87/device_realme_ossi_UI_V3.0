@@ -5,6 +5,13 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
+#
+# Copyright (C) 2024 The Android Open Source Project
+# Copyright (C) 2024 SebaUbuntu's TWRP device tree generator
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
 # Inherit from RMX2155L1 device
 $(call inherit-product, device/realme/RMX2155L1/device.mk)
 
@@ -27,7 +34,7 @@ PRODUCT_NAME := twrp_$(PRODUCT_DEVICE)
 PRODUCT_BRAND := realme
 PRODUCT_MODEL := RMX2155
 PRODUCT_MANUFACTURER := $(PRODUCT_BRAND)
-PRODUCT_RELEASE_NAME := RMX2155
+PRODUCT_RELEASE_NAME := realme 7
 
 PRODUCT_GMS_CLIENTID_BASE := android-realme
 
