@@ -255,4 +255,4 @@ TW_CUSTOM_CPU_POS := 155
 
 #Properties Override
 TW_OVERRIDE_SYSTEM_PROPS := \
-    "ro.build.product;ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental;ro.product.device=ro.product.system.device;ro.product.model=ro.product.system.model;ro.product.name=ro.product.system" 
+     "ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental"
