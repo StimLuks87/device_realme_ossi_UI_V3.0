@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-DEVICE_PATH := device/realme/RMX2155L1
+DEVICE_PATH := device/realme/ossi
 
 # For building with minimal manifest
 ALLOW_MISSING_DEPENDENCIES := true
@@ -19,7 +19,7 @@ BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 OVERRIDE_TARGET_FLATTEN_APEX := true
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := RMX2151,RMX2151L1,RMX2153,RMX2153L1,RMX2155,RMX2155L1,RMX2156,RMX2156L1,RMX2161,RMX2161L1,RMX2163,RMX2163L1,oppo6785,RM6785,salaa,alps,ossi,oplus
+TARGET_OTA_ASSERT_DEVICE := RMX2001,RMX2151,RMX2155,RMX2156,RMX2001L1,RMX2151L1,RMX2155L1,RMX2156L1,oppo6785,RM6785,salaa,alps,ossi
 
 # Architecture
 TARGET_ARCH := arm64
@@ -30,7 +30,7 @@ TARGET_CPU_VARIANT := generic
 TARGET_CPU_VARIANT_RUNTIME := cortex-a76
 
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv7-a-neon
+TARGET_2ND_ARCH_VARIANT := armv8-2a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
@@ -255,4 +255,4 @@ TW_CUSTOM_CPU_POS := 155
 
 #Properties Override
 TW_OVERRIDE_SYSTEM_PROPS := \
-     "ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental"
+    "ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental" 
