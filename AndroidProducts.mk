@@ -10,5 +10,5 @@ PRODUCT_MAKEFILES := \
 
 COMMON_LUNCH_CHOICES := \
     twrp_ossi-user \
-    twrp_-ossi-userdebug \
+    twrp_ossi-userdebug \
     twrp_ossi-eng
