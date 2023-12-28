@@ -29,10 +29,10 @@ $(call inherit-product-if-exists, vendor/pb/config/common.mk)
 # Inherit from TWRP-common stuff, if building TWRP.
 $(call inherit-product-if-exists, vendor/twrp/config/common.mk)
 
-PRODUCT_NAME := twrp_$(PRODUCT_DEVICE)
 PRODUCT_DEVICE := ossi
-PRODUCT_MANUFACTURER := $(PRODUCT_BRAND)
+PRODUCT_NAME := twrp_$(PRODUCT_DEVICE)
 PRODUCT_BRAND := realme
+PRODUCT_MANUFACTURER := $(PRODUCT_BRAND)
 PRODUCT_MODEL := realme 7	
 BOARD_VENDOR := realme
 TARGET_VENDOR := realme
