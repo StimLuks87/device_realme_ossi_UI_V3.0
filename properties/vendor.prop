@@ -18,4 +18,4 @@ ro.crypto.uses_fs_ioc_add_encryption_key=true
 # from variable PRODUCT_PROPERTY_OVERRIDES
 ro.vendor.mediatek.platform=MT6785
 ro.vendor.mtk_f2fs_enable=1
-ro.sf.lcd_density=480
+ro.sf.lcd_density=420
