@@ -26,7 +26,7 @@ PRODUCT_CHARACTERISTICS := default
 PRODUCT_PACKAGES += \
     init.insmod.sh \
     install-recovery.sh \
-    swap_enable.sh \
+    swap_enable.sh
 
 # Partitions && Property
 PRODUCT_BUILD_SUPER_PARTITION := false
