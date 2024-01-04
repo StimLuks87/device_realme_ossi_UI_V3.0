@@ -15,7 +15,19 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/developer_gsi_keys.mk)
   
 # Enable updating of APEXes
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
-  
+
+# Overlays
+PRODUCT_ENFORCE_RRO_TARGETS := *
+
+# Product characteristics
+PRODUCT_CHARACTERISTICS := default
+
+# Recovery/root
+PRODUCT_PACKAGES += \
+    init.insmod.sh \
+    install-recovery.sh \
+    swap_enable.sh \
+
 # Partitions && Property
 PRODUCT_BUILD_SUPER_PARTITION := false
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
