@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-LOCAL_PATH := device/realme/ossi
+LOCAL_PATH := device/oplus/ossi
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
