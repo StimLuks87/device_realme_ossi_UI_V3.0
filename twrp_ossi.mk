@@ -4,7 +4,6 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
-
 #
 # Copyright (C) 2024 The Android Open Source Project
 # Copyright (C) 2024 SebaUbuntu's TWRP device tree generator
@@ -32,10 +31,9 @@ $(call inherit-product-if-exists, vendor/twrp/config/common.mk)
 PRODUCT_DEVICE := ossi
 PRODUCT_NAME := twrp_$(PRODUCT_DEVICE)
 PRODUCT_BRAND := oplus
-PRODUCT_MANUFACTURER := $(PRODUCT_BRAND)
-PRODUCT_MODEL := Realme 7	
-TARGET_VENDOR := oplus
-
+PRODUCT_MODEL := realme 7
+PRODUCT_MANUFACTURER := $(PRODUCT_BRAND)	
+PRODUCT_RELEASE_NAME := RMX2155
 PRODUCT_GMS_CLIENTID_BASE := android-oplus
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
