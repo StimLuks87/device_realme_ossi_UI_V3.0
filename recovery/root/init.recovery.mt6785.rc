@@ -2,7 +2,7 @@
 
 import /init.trustonic.rc
 import /tee.rc
-import /system/etc/init.aging.rc
+import /init.aging.rc
 
 on init
     symlink /dev/block/platform/bootdevice /dev/block/bootdevice
