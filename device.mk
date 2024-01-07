@@ -7,10 +7,6 @@
 
 LOCAL_PATH := device/oplus/ossi
 
-# Soong namespaces
-PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH)
-
 # Enable project quotas and casefolding for emulated storage without sdcardfs
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 
@@ -86,9 +82,6 @@ PRODUCT_PACKAGES += \
     libdrm.vendor \
     libdrm
 
-# Shipping API level
-PRODUCT_SHIPPING_API_LEVEL := 29
-
 # fastbootd
 PRODUCT_PACKAGES += \
     android.hardware.fastboot@1.1-impl-mock \
@@ -119,9 +112,15 @@ TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/android.hardware.gatekeeper@1.0-service.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/android.hardware.gatekeeper@1.0-impl.so
 
-
 # HACK: Set vendor patch level
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.build.security_patch=2099-12-31 \
     ro.bootimage.build.date.utc=0 \
     ro.build.date.utc=0
+
+# Shipping API level
+PRODUCT_SHIPPING_API_LEVEL := 29
+
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += \
+    $(LOCAL_PATH)
