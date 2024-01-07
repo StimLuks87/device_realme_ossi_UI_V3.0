@@ -50,6 +50,15 @@ on boot
 
 on boot && property:ro.crypto.state=encrypted && property:ro.crypto.type=file
     load_fastboot_adb_props
+
+on property:service.adb.root=1
+    restart adbd
+
+on fs && property:ro.debuggable=1
+    setprop sys.usb.config adb
+
+on property:ro.crypto.state=encrypted && property:ro.crypto.type=file
+    start mobicore
     
 on fs
     install_keyring
@@ -61,15 +70,6 @@ on property:vendor.sys.listener.registered=true
     start gatekeeper-1-0
     start keymaster-4-1
     start gatekeeper-1-0   
-
-on property:service.adb.root=1
-    restart adbd
-
-on fs && property:ro.debuggable=1
-    setprop sys.usb.config adb
-
-on property:ro.crypto.state=encrypted && property:ro.crypto.type=file
-    start mobicore
 
 service console /system/bin/sh
     class core
