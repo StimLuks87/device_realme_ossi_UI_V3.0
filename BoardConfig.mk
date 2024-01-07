@@ -168,9 +168,6 @@ BOARD_ROOT_EXTRA_FOLDERS += metadata my_bigball my_carrier my_company my_enginee
 # VINTF
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
 
-# Inherit the proprietary files
-#include vendor/realme/RMX2155L1/BoardConfigVendor.mk
-
 # Additional binaries & libraries needed for recovery
 TARGET_RECOVERY_DEVICE_MODULES += \
     libdmabufheap \
@@ -258,3 +255,6 @@ TW_CUSTOM_CPU_POS := 155
 #Properties Override
 TW_OVERRIDE_SYSTEM_PROPS := \
     "ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental" 
+
+# Inherit the proprietary files
+#include vendor/realme/RMX2155L1/BoardConfigVendor.mk
