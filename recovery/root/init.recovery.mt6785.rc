@@ -1,8 +1,8 @@
 # Copyright (c) 2024, The Linux Foundation. All rights reserved.
 
 import /init.trustonic.rc
-import /tee.rc
 import /init.aging.rc
+import /tee.rc
 
 on init
     symlink /dev/block/platform/bootdevice /dev/block/bootdevice
