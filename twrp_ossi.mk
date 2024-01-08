@@ -22,6 +22,8 @@ $(call inherit-product-if-exists, vendor/pb/config/common.mk)
 # Inherit from TWRP-common stuff, if building TWRP.
 $(call inherit-product-if-exists, vendor/twrp/config/common.mk)
 
+PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,$(LOCAL_PATH)/recovery/root,recovery/root)
+
 PRODUCT_DEVICE := ossi
 PRODUCT_NAME := twrp_$(PRODUCT_DEVICE)
 PRODUCT_BRAND := oplus
