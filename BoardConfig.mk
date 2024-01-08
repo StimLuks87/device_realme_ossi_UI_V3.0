@@ -15,9 +15,6 @@ BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_PREBUILT_ELF_FILES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 
-# APEX
-DEXPREOPT_GENERATE_APEX_IMAGE := true
-
 # Assert
 TARGET_OTA_ASSERT_DEVICE := RMX2151,RMX2155,RMX2156,RMX2151L1,RMX2155L1,RMX2156L1,oppo6785,RM6785,salaa,ossi
 
@@ -165,9 +162,6 @@ BOARD_AVB_RECOVERY_ADD_HASH_FOOTER_ARGS += \
 BOARD_USES_METADATA_PARTITION := true
 BOARD_ROOT_EXTRA_FOLDERS += metadata my_bigball my_carrier my_company my_engineering my_heytap my_manifest my_preload my_product my_region my_stock my_version 
 
-# VINTF
-DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
-
 # Additional binaries & libraries needed for recovery
 TARGET_RECOVERY_DEVICE_MODULES += \
     libdmabufheap \
@@ -237,7 +231,7 @@ TW_SKIP_COMPATIBILITY_CHECK := true
 TW_EXCLUDE_LPTOOLS := true
 TARGET_SCREEN_HEIGHT := 2400
 TARGET_SCREEN_WIDTH := 1080 
-#TW_EXCLUDE_APEX := true
+TW_EXCLUDE_APEX := true
 #TW_NO_BIND_SYSTEM := true
 #TW_NEVER_UNMOUNT_SYSTEM := true
 
