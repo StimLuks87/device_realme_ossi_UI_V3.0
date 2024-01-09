@@ -25,8 +25,8 @@ $(call inherit-product-if-exists, vendor/twrp/config/common.mk)
 PRODUCT_DEVICE := ossi
 PRODUCT_NAME := twrp_$(PRODUCT_DEVICE)
 PRODUCT_BRAND := oplus
-PRODUCT_MODEL := realme 7
 PRODUCT_MANUFACTURER := $(PRODUCT_BRAND)	
+PRODUCT_MODEL := realme 7
 PRODUCT_RELEASE_NAME := RMX2155
 PRODUCT_GMS_CLIENTID_BASE := android-oplus
 
